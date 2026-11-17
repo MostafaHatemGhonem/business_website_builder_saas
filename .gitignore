@@ -1,10 +1,32 @@
 .env
-__pycache__/
-*.pyc
-.vscode/
 .env.development
 .env.prod
 .env.local
 .env.test
+
+# Python & virtual environments
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
 .venv/
+venv/
+env/
+
+# Django
+*.sqlite3
+db.sqlite3
+staticfiles/
+media/
+*.log
+
+# Testing & coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# IDE & OS
+.vscode/
+.DS_Store
+Thumbs.db
 
