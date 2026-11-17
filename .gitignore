@@ -1,0 +1,10 @@
+.env
+__pycache__/
+*.pyc
+.vscode/
+.env.development
+.env.prod
+.env.local
+.env.test
+.venv/
+
