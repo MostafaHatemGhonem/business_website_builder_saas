@@ -3,7 +3,7 @@ from .models import Business, Membership
 
 
 
-class BusinessSerializer(serializers.Serializer):
+class BusinessSerializer(serializers.ModelSerializer):
     user_role = serializers.SerializerMethodField()
 
     class Meta:
@@ -34,7 +34,7 @@ class BusinessSerializer(serializers.Serializer):
         return obj.get_user_role(request.user)
 
     
-class Membership Serializer(serializers.ModelSerializer):
+class MembershipSerializer(serializers.ModelSerializer):
     business_name = serializers.CharField(
         source = 'business.name',
         read_only = True

@@ -9,15 +9,13 @@ from django.conf import settings
 
 from rest_framework import serializers
 
-from .models import User, UserManger
-
 User = get_user_model() # Dynamically gets your custom User model (since you set AUTH_USER_MODEL in settings.py) 
 
 
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
-        model = settings.AUTH_USER_MODEL
+        model = User
         fields = [
             'id',
             'email',
@@ -25,7 +23,7 @@ class UserSerializer(serializers.ModelSerializer):
             'last_name',
             'password',
         ]
-        read_only_field = ['id']
+        read_only_fields = ['id']
         extra_kwargs = {
             'password': {'write_only': True}
         }
@@ -34,7 +32,7 @@ class UserSerializer(serializers.ModelSerializer):
 
 class RegisterSerializer(serializers.ModelSerializer):
     class Meta:
-        model = settings.AUTH_USER_MODEL
+        model = User
         fields = [
             'id',
             'email',
@@ -42,13 +40,14 @@ class RegisterSerializer(serializers.ModelSerializer):
             'last_name',
             'password',
         ]
-        read_only_field = ['id']
+        read_only_fields = ['id']
         extra_kwargs = {
             'password': {'write_only': True}
         }
-        def create(self, validated_data):
-            user = User.objects.create_user(**validated_data)
-            return user
+
+    def create(self, validated_data):
+        user = User.objects.create_user(**validated_data)
+        return user
 
 
 class PasswordResetSerializer(serializers.Serializer):

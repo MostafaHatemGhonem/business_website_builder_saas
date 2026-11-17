@@ -14,7 +14,7 @@ class PasswordResetView(APIView):
         serializer.save()
 
         return Response(
-            {'detail': "if them email exists, a password reset link has been sent."},
+            {'detail': "If the email exists, a password reset link has been sent."},
             status=status.HTTP_200_OK
         )
 

@@ -4,7 +4,7 @@ from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
 
 from .models import Business, Membership 
-from .permissions import IsBusinessOwner, IsBusinessManagerOrOwner, IsBusinessMember
+from .permissions import IsBusinessOwner, IsBusinessManagerOrOwner, IsActiveBusinessMember
 from .serializers import BusinessSerializer
 
 
@@ -25,7 +25,7 @@ class BusinessViewSet(viewsets.ModelViewSet):
             return [IsAuthenticated(), IsBusinessOwner()]
         elif self.action in ["update", "partial_update"]:
             return [IsAuthenticated(), IsBusinessManagerOrOwner()]
-        return [IsAuthenticated(), IsBusinessMember()]
+        return [IsAuthenticated(), IsActiveBusinessMember()]
 
     def perform_create(self, serializer):
         """Automatically assigns the creator as an ACTIVE OWNER."""
