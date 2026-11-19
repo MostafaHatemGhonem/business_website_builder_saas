@@ -55,7 +55,7 @@ class Website(models.Model):
 class WebsiteSection(models.Model):
     class Type(models.TextChoices):
         HERO = "Hero", "hero"
-        PRODUCT_GRID = "Product_gird", "product_grid"
+        PRODUCT_GRID = "Product_grid", "product_grid"
         GALLERY = "Gallery", "gallery"
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)

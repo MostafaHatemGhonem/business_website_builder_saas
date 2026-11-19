@@ -148,7 +148,7 @@ The backend follows a **modular monolith** layout under `backend/apps/`:
 6. **`apps.websites`**
    - `Theme`: Reusable website theme definitions with JSON `default_config`.
    - `Website`: One-to-one website per `Business` with draft/published configuration snapshots and status (`Draft`, `Published`, `Suspended`).
-   - `WebsiteSection`: Ordered sections (`Hero`, `Product_gird`, `Gallery`) belonging to a website.
+   - `WebsiteSection`: Ordered sections (`Hero`, `Product_grid`, `Gallery`) belonging to a website.
    - `Domain`: Platform or custom hostnames with verification status and a single-primary-domain constraint per website.
 7. **`apps.integrations`**
    - `WhatsappIntegration`: One-to-one per business storing mode, phone number, provider metadata, and connection status.
