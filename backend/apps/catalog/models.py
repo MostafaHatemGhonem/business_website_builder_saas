@@ -15,7 +15,7 @@ class Category(models.Model):
         related_name='categories'
     )
     name = models.CharField(max_length=120)
-    slug = models.SlugField(max_length=140,unique=True)
+    slug = models.SlugField(max_length=140)
     description = models.TextField(null=True,blank=True)
     position = models.PositiveIntegerField(default=0)
     is_active = models.BooleanField(default=True)
