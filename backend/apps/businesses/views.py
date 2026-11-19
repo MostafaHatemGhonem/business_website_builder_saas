@@ -20,10 +20,12 @@ class BusinessViewSet(viewsets.ModelViewSet):
             memberships__status=Membership .Status.ACTIVE,
         ).distinct()
 
-    def get_permissions(self):  
+    def get_permissions(self):
+        if self.action in ["list", "create"]:
+            return [IsAuthenticated()]
         if self.action == "destroy":
             return [IsAuthenticated(), IsBusinessOwner()]
-        elif self.action in ["update", "partial_update"]:
+        if self.action in ["update", "partial_update"]:
             return [IsAuthenticated(), IsBusinessManagerOrOwner()]
         return [IsAuthenticated(), IsActiveBusinessMember()]
 

@@ -21,12 +21,8 @@ class UserSerializer(serializers.ModelSerializer):
             'email',
             'first_name',
             'last_name',
-            'password',
         ]
         read_only_fields = ['id']
-        extra_kwargs = {
-            'password': {'write_only': True}
-        }
 
 
 
@@ -44,6 +40,18 @@ class RegisterSerializer(serializers.ModelSerializer):
         extra_kwargs = {
             'password': {'write_only': True}
         }
+
+    def validate(self, attrs):
+        user = User(
+            email=attrs.get('email', ''),
+            first_name=attrs.get('first_name', ''),
+            last_name=attrs.get('last_name', ''),
+        )
+        try:
+            validate_password(attrs['password'], user=user)
+        except DjangoValidationError as error:
+            raise serializers.ValidationError({'password': list(error.messages)})
+        return attrs
 
     def create(self, validated_data):
         user = User.objects.create_user(**validated_data)
@@ -89,7 +97,7 @@ class PasswordResetConfirmSerializer(serializers.Serializer):
         # 1. Validate and decode the user ID
         try:
             uid = force_str(urlsafe_base64_decode(attrs['uid']))
-            self.user = User.objects.get(pk=uid)
+            self.user = User.objects.get(pk=uid, is_active=True)
         except (TypeError, ValueError, OverflowError, User.DoesNotExist):
             raise serializers.ValidationError({"uid": "Invalid user ID."})
 
